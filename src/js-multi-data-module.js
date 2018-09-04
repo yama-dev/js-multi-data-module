@@ -1,7 +1,7 @@
 /*!
  * JS MULTI_DATA_MODULE (JavaScript Library)
  *   js-multi-data-module.js
- * Version 0.0.3
+ * Version 0.0.4
  * Repository https://github.com/yama-dev/js-multi-data-module
  * Author yama-dev
  * Licensed under the MIT license.
@@ -14,7 +14,7 @@ export class MULTI_DATA_MODULE {
   constructor(options={}){
 
     // Set Version.
-    this.Version = '0.0.3';
+    this.Version = '0.0.4';
 
     // Use for discrimination by URL.
     this.CurrentUrl = location.href;
@@ -25,6 +25,7 @@ export class MULTI_DATA_MODULE {
       data_type : options.data_type||null,
       data_list : options.data_list||null,
       order     : options.order||'up', // 'down'
+      jsonpCallback : options.jsonpCallback||'callback',
       fetch_timeout: 10000
     }
 
@@ -68,7 +69,7 @@ export class MULTI_DATA_MODULE {
 
       let promise = new Promise((resolve, reject)=>{
         let _script = document.createElement('script');
-        _script.src = `${dataAry[count].url}?${param_ramd}`;
+        _script.src = `${dataAry[count].url}?callback=${this.Config.jsonpCallback}&_=${param_ramd}`;
         document.body.appendChild(_script);
         window.callback = (response)=>{
           resolve(response);
