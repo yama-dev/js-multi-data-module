@@ -1,23 +1,12 @@
-/*!
- * JS MULTI_DATA_MODULE (JavaScript Library)
- *   js-multi-data-module.js
- * Version 0.0.5
- * Repository https://github.com/yama-dev/js-multi-data-module
- * Author yama-dev
- * Licensed under the MIT license.
- */
 
 import Promise from 'es6-promise';
 
-export class MULTI_DATA_MODULE {
+export default class MULTI_DATA_MODULE {
 
   constructor(options={}){
 
     // Set Version.
-    this.Version = '0.0.5';
-
-    // Use for discrimination by URL.
-    this.CurrentUrl = location.href;
+    this.Version = process.env.VERSION;
 
     // Set config, options.
     this.Config = {
@@ -40,22 +29,11 @@ export class MULTI_DATA_MODULE {
       Complete : options.on.Complete||'',
     }
 
-    // Debug-Mode
-    if(this.CurrentUrl.search(/localhost/) !== -1
-      || this.CurrentUrl.search(/192.168/) !== -1)
-    {
-      this.DebugMode();
-    }
-
     // For Jsonp data.
     if(this.Config.data_type === 'jsonp'){
       this.GetDataJsonp(this.Config.data_list);
     }
 
-  }
-
-  DebugMode(){
-    console.log(this);
   }
 
   GetDataJsonp(dataAry){
@@ -87,9 +65,11 @@ export class MULTI_DATA_MODULE {
 
           let _data = eval('data' +'.'+ dataAry[count].hierarchy);
 
-          let _func = dataAry[count].customFunction;
+          let _func = null;
+          if(dataAry[count].customFunction) _func = dataAry[count].customFunction;
 
-          let _data_array = this.CreateData(_data, _func)
+          let _data_array = _data;
+          if(_func) _data_array = this.CreateData(_data, _func);
           if(_data_array) this.DataFix = this.DataFix.concat(_data_array);
 
           count++;
@@ -119,6 +99,7 @@ export class MULTI_DATA_MODULE {
     // Sort Data.
     if(this.Config.order === 'up'){
       this.DataFix.sort(function(a,b){
+        if(!a.date || !b.date ) return 0;
         a = new Date(a.date.replace(/\./g,'/'));
         b = new Date(b.date.replace(/\./g,'/'));
         if(a < b) return -1;
@@ -128,6 +109,7 @@ export class MULTI_DATA_MODULE {
     }
     if(this.Config.order === 'down'){
       this.DataFix.sort(function(a,b){
+        if(!a.date || !b.date ) return 0;
         a = new Date(a.date.replace(/\./g,'/'));
         b = new Date(b.date.replace(/\./g,'/'));
         if(a < b) return 1;
