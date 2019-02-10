@@ -1,6 +1,6 @@
 {
   "name": "js-multi-data-module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Get multi data library.",
   "keywords": [
     "multi-data",
@@ -13,7 +13,7 @@
     "start": "npm install && npm run develop",
     "develop": "npm-run-all -p webpack:develop server",
     "production": "npm-run-all -p webpack:build server",
-    "server": "browser-sync start --server ./ --directory ./sample --files **/*.css **/*.js **/*.html",
+    "server": "browser-sync start --server ./ --directory ./examples --files **/*.css **/*.js **/*.html",
     "webpack:develop": "webpack --progress --colors --watch",
     "webpack:build": "webpack --mode=production --progress --colors"
   },
