@@ -14,6 +14,10 @@ Get multi data library.
 
 - npm -> [https://www.npmjs.com/package/js-multi-data-module](https://www.npmjs.com/package/js-multi-data-module)
 
+- Standalone(CDN) -> [https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.2.0/dist/js-multi-data-module.js](https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.2.0/dist/js-multi-data-module.js)
+
+- Zip -> [yama-dev/js-multi-data-module](https://github.com/yama-dev/js-multi-data-module/releases/latest)
+
 <br>
 
 ## Using
@@ -22,7 +26,7 @@ Get multi data library.
 
 ``` bash
 # install npm.
-npm install --save-dev js-multi-data-module
+npm install --save js-multi-data-module
 ```
 
 ``` javascript
@@ -44,12 +48,49 @@ import MULTI_DATA_MODULE from 'js-multi-data-module';
       }
     ]
     on: {
-      Complete: function(data){
-        console.log(data);
+      Complete: function(data,list){
+        console.log(data,list);
       }
     }
   });
-  console.log(MDM);
+</script>
+```
+
+### Advanced Usage
+
+``` html
+<script src="./js-multi-data-module.js"></script>
+<script>
+  let MDM =  new MULTI_DATA_MODULE({
+    order: 'down',
+    orderProperty: 'pubDate',
+    filter: true,
+    jsonpCallback : 'callback',
+    fetch_timeout : 10000
+    data_type: 'jsonp',
+    data_list: [
+      {
+        url:'./sample.json',
+        hierarchy: 'items'
+      },
+      {
+        url:'./sample.object.json',
+        hierarchy: 'items.list', // items = { list: [...] }
+      },
+      {
+        url:'./sample.array.json',
+        hierarchy: 'items.0', // items[0]
+      }
+    ]
+    on: {
+      Update: function(data){
+        console.log(data);
+      },
+      Complete: function(data, list){
+        console.log(data, list);
+      }
+    }
+  });
 </script>
 ```
 
