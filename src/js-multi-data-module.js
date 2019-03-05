@@ -7,7 +7,7 @@ export default class MULTI_DATA_MODULE {
   constructor(options={}){
 
     let configDefault = {
-      data_type     : 'jsonp',
+      data_type     : 'jsonp', // 'jsonp' 'json' 'html'
       data_list     : null,
       order         : 'up', // 'down'
       orderProperty : 'date',
@@ -49,6 +49,15 @@ export default class MULTI_DATA_MODULE {
       this.GetDataJsonp(this.Config.data_list);
     }
 
+    // For Json data.
+    if(this.Config.data_type === 'json'){
+      this.GetDataJson(this.Config.data_list);
+    }
+
+    // For Html data.
+    if(this.Config.data_type === 'html'){
+      this.GetDataHtml(this.Config.data_list);
+    }
   }
 
   GetDataJsonp(dataAry){
@@ -88,6 +97,149 @@ export default class MULTI_DATA_MODULE {
           if(dataAry[count].customFunction){
             _data = this.CreateData(_data, dataAry[count].customFunction);
           }
+
+          if(_data){
+            this.DataFix = this.DataFix.concat(_data);
+            this.DataList[count] = _data;
+          }
+
+          this.OnUpdate(this.DataList[count]);
+
+          count++;
+          if(count < countMax){
+            getDataFunc();
+          } else {
+            this.FormatData();
+          }
+
+        })
+        .catch((err)=>{
+          // Error.
+          console.log(err);
+        });
+    };
+
+    getDataFunc();
+
+  }
+
+  GetDataJson(dataAry){
+
+    let count = 0;
+    let countMax = dataAry.length;
+
+    let param_ramd = new Date().getTime();
+
+    let getDataFunc = ()=>{
+
+      let promise = new Promise((resolve, reject)=>{
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+              resolve(JSON.parse(xhr.responseText));
+            }
+
+          }
+        };
+
+        let _url = '';
+        if(dataAry[count].url.match(/\?.*$/)){
+          _url = `${dataAry[count].url}&_=${param_ramd}`;
+        } else {
+          _url = `${dataAry[count].url}?_=${param_ramd}`;
+        }
+        xhr.onload = function() { };
+        xhr.open('GET', _url, true);
+        xhr.send(null);
+
+        setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
+      });
+
+      promise
+        .then((data)=>{
+          // Success.
+          let _data = data;
+
+          // Select data hierarchy.
+          dataAry[count].hierarchy.split('.').map((item)=>{
+            _data = _data[item];
+          });
+
+          // Set function to format data.
+          if(dataAry[count].customFunction){
+            _data = this.CreateData(_data, dataAry[count].customFunction);
+          }
+
+          if(_data){
+            this.DataFix = this.DataFix.concat(_data);
+            this.DataList[count] = _data;
+          }
+
+          this.OnUpdate(this.DataList[count]);
+
+          count++;
+          if(count < countMax){
+            getDataFunc();
+          } else {
+            this.FormatData();
+          }
+
+        })
+        .catch((err)=>{
+          // Error.
+          console.log(err);
+        });
+    };
+
+    getDataFunc();
+
+  }
+
+  GetDataHtml(dataAry){
+
+    let count = 0;
+    let countMax = dataAry.length;
+
+    let param_ramd = new Date().getTime();
+
+    let getDataFunc = ()=>{
+
+      let promise = new Promise((resolve, reject)=>{
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+              let _obj = {
+                html: xhr.responseXML.body.innerHTML,
+                title: xhr.responseXML.title,
+                head: xhr.responseXML.head,
+                body: xhr.responseXML.body
+              };
+              resolve(xhr.responseXML.body, _obj);
+            }
+
+          }
+        };
+
+        let _url = '';
+        if(dataAry[count].url.match(/\?.*$/)){
+          _url = `${dataAry[count].url}&_=${param_ramd}`;
+        } else {
+          _url = `${dataAry[count].url}?_=${param_ramd}`;
+        }
+        xhr.onload = function() { };
+        xhr.open('GET', _url, true);
+        xhr.responseType = 'document';
+        xhr.send(null);
+
+        setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
+      });
+
+      promise
+        .then((data)=>{
+          // Success.
+          let _data = data;
 
           if(_data){
             this.DataFix = this.DataFix.concat(_data);
