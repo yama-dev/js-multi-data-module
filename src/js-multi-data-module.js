@@ -72,9 +72,9 @@ export default class MULTI_DATA_MODULE {
       let promise = new Promise((resolve, reject)=>{
         let _script = document.createElement('script');
         if(dataAry[count].url.match(/\?.*$/)){
-          _script.src = `${dataAry[count].url}&callback=${this.Config.jsonpCallback}&_=${param_ramd}`;
+          _script.src = `${dataAry[count].url}&callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
         } else {
-          _script.src = `${dataAry[count].url}?callback=${this.Config.jsonpCallback}&_=${param_ramd}`;
+          _script.src = `${dataAry[count].url}?callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
         }
         document.body.appendChild(_script);
         window.callback = (response)=>{
@@ -145,9 +145,9 @@ export default class MULTI_DATA_MODULE {
 
         let _url = '';
         if(dataAry[count].url.match(/\?.*$/)){
-          _url = `${dataAry[count].url}&_=${param_ramd}`;
+          _url = `${dataAry[count].url}&_=${param_ramd+count}`;
         } else {
-          _url = `${dataAry[count].url}?_=${param_ramd}`;
+          _url = `${dataAry[count].url}?_=${param_ramd+count}`;
         }
         xhr.onload = function() { };
         xhr.open('GET', _url, true);
@@ -224,9 +224,9 @@ export default class MULTI_DATA_MODULE {
 
         let _url = '';
         if(dataAry[count].url.match(/\?.*$/)){
-          _url = `${dataAry[count].url}&_=${param_ramd}`;
+          _url = `${dataAry[count].url}&_=${param_ramd+count}`;
         } else {
-          _url = `${dataAry[count].url}?_=${param_ramd}`;
+          _url = `${dataAry[count].url}?_=${param_ramd+count}`;
         }
         xhr.onload = function() { };
         xhr.open('GET', _url, true);
