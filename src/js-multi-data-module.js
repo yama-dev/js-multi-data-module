@@ -7,7 +7,7 @@ export default class MULTI_DATA_MODULE {
   constructor(options={}){
 
     let configDefault = {
-      data_type     : 'jsonp', // 'jsonp' 'json' 'html'
+      data_type     : 'jsonp', // 'jsonp' 'json' 'html' 'xml'
       data_list     : null,
       order         : 'up', // 'down'
       orderProperty : 'date',
@@ -55,8 +55,8 @@ export default class MULTI_DATA_MODULE {
     }
 
     // For Html data.
-    if(this.Config.data_type === 'html'){
-      this.GetDataHtml(this.Config.data_list);
+    if(this.Config.data_type === 'html' || this.Config.data_type === 'xml'){
+      this.GetDataDocument(this.Config.data_list);
     }
   }
 
@@ -72,9 +72,9 @@ export default class MULTI_DATA_MODULE {
       let promise = new Promise((resolve, reject)=>{
         let _script = document.createElement('script');
         if(dataAry[count].url.match(/\?.*$/)){
-          _script.src = `${dataAry[count].url}&callback=${this.Config.jsonpCallback}&_=${param_ramd}`;
+          _script.src = `${dataAry[count].url}&callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
         } else {
-          _script.src = `${dataAry[count].url}?callback=${this.Config.jsonpCallback}&_=${param_ramd}`;
+          _script.src = `${dataAry[count].url}?callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
         }
         document.body.appendChild(_script);
         window.callback = (response)=>{
@@ -95,7 +95,7 @@ export default class MULTI_DATA_MODULE {
 
           // Set function to format data.
           if(dataAry[count].customFunction){
-            _data = this.CreateData(_data, dataAry[count].customFunction);
+            _data = this.CreateData(_data, null, dataAry[count].customFunction);
           }
 
           if(_data){
@@ -145,9 +145,9 @@ export default class MULTI_DATA_MODULE {
 
         let _url = '';
         if(dataAry[count].url.match(/\?.*$/)){
-          _url = `${dataAry[count].url}&_=${param_ramd}`;
+          _url = `${dataAry[count].url}&_=${param_ramd+count}`;
         } else {
-          _url = `${dataAry[count].url}?_=${param_ramd}`;
+          _url = `${dataAry[count].url}?_=${param_ramd+count}`;
         }
         xhr.onload = function() { };
         xhr.open('GET', _url, true);
@@ -168,7 +168,7 @@ export default class MULTI_DATA_MODULE {
 
           // Set function to format data.
           if(dataAry[count].customFunction){
-            _data = this.CreateData(_data, dataAry[count].customFunction);
+            _data = this.CreateData(_data, null, dataAry[count].customFunction);
           }
 
           if(_data){
@@ -196,7 +196,8 @@ export default class MULTI_DATA_MODULE {
 
   }
 
-  GetDataHtml(dataAry){
+  GetDataDocument(dataAry){
+    let _that = this;
 
     let count = 0;
     let countMax = dataAry.length;
@@ -210,13 +211,31 @@ export default class MULTI_DATA_MODULE {
         xhr.onreadystatechange = function() {
           if (xhr.readyState === 4) {
             if (xhr.status == 200) {
-              let _obj = {
-                html: xhr.responseXML.body.innerHTML,
-                title: xhr.responseXML.title,
-                head: xhr.responseXML.head,
-                body: xhr.responseXML.body
-              };
-              resolve(xhr.responseXML.body, _obj);
+
+              let _obj;
+              let _doc;
+
+              if(_that.Config.data_type === 'html'){
+                _obj = {
+                  html: xhr.responseXML.body.innerHTML,
+                  title: xhr.responseXML.title,
+                  head: xhr.responseXML.head,
+                  body: xhr.responseXML.body
+                };
+                _doc = xhr.responseXML.body;
+              }
+
+              if(_that.Config.data_type === 'xml'){
+                _obj = {
+                  html: xhr.responseXML,
+                  title: null,
+                  head: null,
+                  body: xhr.responseXML
+                };
+                _doc = xhr.responseXML;
+              }
+
+              resolve([_doc, _obj]);
             }
 
           }
@@ -224,9 +243,9 @@ export default class MULTI_DATA_MODULE {
 
         let _url = '';
         if(dataAry[count].url.match(/\?.*$/)){
-          _url = `${dataAry[count].url}&_=${param_ramd}`;
+          _url = `${dataAry[count].url}&_=${param_ramd+count}`;
         } else {
-          _url = `${dataAry[count].url}?_=${param_ramd}`;
+          _url = `${dataAry[count].url}?_=${param_ramd+count}`;
         }
         xhr.onload = function() { };
         xhr.open('GET', _url, true);
@@ -239,7 +258,13 @@ export default class MULTI_DATA_MODULE {
       promise
         .then((data)=>{
           // Success.
-          let _data = data;
+          let _data = data[0];
+          let _obj = data[1];
+
+          // Set function to format data.
+          if(dataAry[count].customFunction){
+            _data = this.CreateData(_data, _obj, dataAry[count].customFunction);
+          }
 
           if(_data){
             this.DataFix = this.DataFix.concat(_data);
@@ -266,8 +291,12 @@ export default class MULTI_DATA_MODULE {
 
   }
 
-  CreateData(data, func){
-    return func(data);
+  CreateData(data, obj, func){
+    if(obj !== undefined){
+      return func(data, obj);
+    } else {
+      return func(data);
+    }
   }
 
   FormatData(){
