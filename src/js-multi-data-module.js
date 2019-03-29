@@ -116,6 +116,18 @@ export default class MULTI_DATA_MODULE {
         .catch((err)=>{
           // Error.
           console.log(err);
+
+          this.DataFix = this.DataFix.concat([]);
+          this.DataList[count] = [];
+
+          this.OnUpdate(this.DataList[count]);
+
+          count++;
+          if(count < countMax){
+            getDataFunc();
+          } else {
+            this.FormatData();
+          }
         });
     };
 
@@ -189,6 +201,18 @@ export default class MULTI_DATA_MODULE {
         .catch((err)=>{
           // Error.
           console.log(err);
+
+          this.DataFix = this.DataFix.concat([]);
+          this.DataList[count] = [];
+
+          this.OnUpdate(this.DataList[count]);
+
+          count++;
+          if(count < countMax){
+            getDataFunc();
+          } else {
+            this.FormatData();
+          }
         });
     };
 
@@ -284,6 +308,18 @@ export default class MULTI_DATA_MODULE {
         .catch((err)=>{
           // Error.
           console.log(err);
+
+          this.DataFix = this.DataFix.concat([]);
+          this.DataList[count] = [];
+
+          this.OnUpdate(this.DataList[count]);
+
+          count++;
+          if(count < countMax){
+            getDataFunc();
+          } else {
+            this.FormatData();
+          }
         });
     };
 
