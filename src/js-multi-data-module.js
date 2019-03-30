@@ -103,7 +103,7 @@ export default class MULTI_DATA_MODULE {
             this.DataFix = this.DataFix.concat(_data);
             this.DataList[count] = _data;
           } else if(this.Config.empty){
-            this.DataFix = this.DataFix.concat([]);
+            this.DataFix = this.DataFix.concat(['']);
             this.DataList[count] = [];
           }
 
@@ -121,7 +121,7 @@ export default class MULTI_DATA_MODULE {
           // Error.
           console.log(err);
 
-          this.DataFix = this.DataFix.concat([]);
+          this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
 
           this.OnUpdate(this.DataList[count]);
@@ -191,7 +191,7 @@ export default class MULTI_DATA_MODULE {
             this.DataFix = this.DataFix.concat(_data);
             this.DataList[count] = _data;
           } else if(this.Config.empty){
-            this.DataFix = this.DataFix.concat([]);
+            this.DataFix = this.DataFix.concat(['']);
             this.DataList[count] = [];
           }
 
@@ -209,7 +209,7 @@ export default class MULTI_DATA_MODULE {
           // Error.
           console.log(err);
 
-          this.DataFix = this.DataFix.concat([]);
+          this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
 
           this.OnUpdate(this.DataList[count]);
@@ -301,7 +301,7 @@ export default class MULTI_DATA_MODULE {
             this.DataFix = this.DataFix.concat(_data);
             this.DataList[count] = _data;
           } else if(this.Config.empty){
-            this.DataFix = this.DataFix.concat([]);
+            this.DataFix = this.DataFix.concat(['']);
             this.DataList[count] = [];
           }
 
@@ -319,7 +319,7 @@ export default class MULTI_DATA_MODULE {
           // Error.
           console.log(err);
 
-          this.DataFix = this.DataFix.concat([]);
+          this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
 
           this.OnUpdate(this.DataList[count]);
