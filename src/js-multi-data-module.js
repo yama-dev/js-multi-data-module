@@ -12,6 +12,7 @@ export default class MULTI_DATA_MODULE {
       order         : 'up', // 'down'
       orderProperty : 'date',
       filter        : false,
+      empty         : false,
       jsonpCallback : 'callback',
       fetch_timeout : 10000
     };
@@ -101,6 +102,9 @@ export default class MULTI_DATA_MODULE {
           if(_data){
             this.DataFix = this.DataFix.concat(_data);
             this.DataList[count] = _data;
+          } else if(this.Config.empty){
+            this.DataFix = this.DataFix.concat(['']);
+            this.DataList[count] = [];
           }
 
           this.OnUpdate(this.DataList[count]);
@@ -116,6 +120,18 @@ export default class MULTI_DATA_MODULE {
         .catch((err)=>{
           // Error.
           console.log(err);
+
+          this.DataFix = this.DataFix.concat(['']);
+          this.DataList[count] = [];
+
+          this.OnUpdate(this.DataList[count]);
+
+          count++;
+          if(count < countMax){
+            getDataFunc();
+          } else {
+            this.FormatData();
+          }
         });
     };
 
@@ -174,6 +190,9 @@ export default class MULTI_DATA_MODULE {
           if(_data){
             this.DataFix = this.DataFix.concat(_data);
             this.DataList[count] = _data;
+          } else if(this.Config.empty){
+            this.DataFix = this.DataFix.concat(['']);
+            this.DataList[count] = [];
           }
 
           this.OnUpdate(this.DataList[count]);
@@ -189,6 +208,18 @@ export default class MULTI_DATA_MODULE {
         .catch((err)=>{
           // Error.
           console.log(err);
+
+          this.DataFix = this.DataFix.concat(['']);
+          this.DataList[count] = [];
+
+          this.OnUpdate(this.DataList[count]);
+
+          count++;
+          if(count < countMax){
+            getDataFunc();
+          } else {
+            this.FormatData();
+          }
         });
     };
 
@@ -269,6 +300,9 @@ export default class MULTI_DATA_MODULE {
           if(_data){
             this.DataFix = this.DataFix.concat(_data);
             this.DataList[count] = _data;
+          } else if(this.Config.empty){
+            this.DataFix = this.DataFix.concat(['']);
+            this.DataList[count] = [];
           }
 
           this.OnUpdate(this.DataList[count]);
@@ -284,6 +318,18 @@ export default class MULTI_DATA_MODULE {
         .catch((err)=>{
           // Error.
           console.log(err);
+
+          this.DataFix = this.DataFix.concat(['']);
+          this.DataList[count] = [];
+
+          this.OnUpdate(this.DataList[count]);
+
+          count++;
+          if(count < countMax){
+            getDataFunc();
+          } else {
+            this.FormatData();
+          }
         });
     };
 
