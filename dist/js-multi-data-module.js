@@ -1,7 +1,7 @@
 /*!
  * JS MULTI_DATA_MODULE (JavaScript Library)
  *   js-multi-data-module
- * Version 0.4.5
+ * Version 0.4.7
  * Repository https://github.com/yama-dev/js-multi-data-module
  * Copyright yama-dev
  * Licensed MIT
