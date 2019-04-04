@@ -71,17 +71,24 @@ export default class MULTI_DATA_MODULE {
     let getDataFunc = ()=>{
 
       let promise = new Promise((resolve, reject)=>{
+        if(dataAry[count].url){
+
         let _script = document.createElement('script');
         if(dataAry[count].url.match(/\?.*$/)){
           _script.src = `${dataAry[count].url}&callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
         } else {
           _script.src = `${dataAry[count].url}?callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
         }
+
         document.body.appendChild(_script);
         window.callback = (response)=>{
           resolve(response);
         };
         setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
+
+        } else {
+          reject('error:not found data.');
+        }
       });
 
       promise
@@ -149,6 +156,9 @@ export default class MULTI_DATA_MODULE {
     let getDataFunc = ()=>{
 
       let promise = new Promise((resolve, reject)=>{
+
+        if(dataAry[count].url){
+
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
           if (xhr.readyState === 4) {
@@ -170,6 +180,10 @@ export default class MULTI_DATA_MODULE {
         xhr.send(null);
 
         setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
+
+        } else {
+          reject('error:not found data.');
+        }
       });
 
       promise
