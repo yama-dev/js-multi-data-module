@@ -71,17 +71,24 @@ export default class MULTI_DATA_MODULE {
     let getDataFunc = ()=>{
 
       let promise = new Promise((resolve, reject)=>{
-        let _script = document.createElement('script');
-        if(dataAry[count].url.match(/\?.*$/)){
-          _script.src = `${dataAry[count].url}&callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
+        if(dataAry[count].url){
+
+          let _script = document.createElement('script');
+          if(dataAry[count].url.match(/\?.*$/)){
+            _script.src = `${dataAry[count].url}&callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
+          } else {
+            _script.src = `${dataAry[count].url}?callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
+          }
+
+          document.body.appendChild(_script);
+          window.callback = (response)=>{
+            resolve(response);
+          };
+          setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
+
         } else {
-          _script.src = `${dataAry[count].url}?callback=${this.Config.jsonpCallback}&_=${param_ramd+count}`;
+          reject('error:not found data.');
         }
-        document.body.appendChild(_script);
-        window.callback = (response)=>{
-          resolve(response);
-        };
-        setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
       });
 
       promise
@@ -119,7 +126,7 @@ export default class MULTI_DATA_MODULE {
         })
         .catch((err)=>{
           // Error.
-          console.log(err);
+          console.log('%c'+err,'color: red');
 
           this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
@@ -149,27 +156,34 @@ export default class MULTI_DATA_MODULE {
     let getDataFunc = ()=>{
 
       let promise = new Promise((resolve, reject)=>{
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4) {
-            if (xhr.status == 200) {
-              resolve(JSON.parse(xhr.responseText));
+
+        if(dataAry[count].url){
+
+          let xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+              if (xhr.status == 200) {
+                resolve(JSON.parse(xhr.responseText));
+              }
+
             }
+          };
 
+          let _url = '';
+          if(dataAry[count].url.match(/\?.*$/)){
+            _url = `${dataAry[count].url}&_=${param_ramd+count}`;
+          } else {
+            _url = `${dataAry[count].url}?_=${param_ramd+count}`;
           }
-        };
+          xhr.onload = function() { };
+          xhr.open('GET', _url, true);
+          xhr.send(null);
 
-        let _url = '';
-        if(dataAry[count].url.match(/\?.*$/)){
-          _url = `${dataAry[count].url}&_=${param_ramd+count}`;
+          setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
+
         } else {
-          _url = `${dataAry[count].url}?_=${param_ramd+count}`;
+          reject('error:not found data.');
         }
-        xhr.onload = function() { };
-        xhr.open('GET', _url, true);
-        xhr.send(null);
-
-        setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
       });
 
       promise
@@ -207,7 +221,7 @@ export default class MULTI_DATA_MODULE {
         })
         .catch((err)=>{
           // Error.
-          console.log(err);
+          console.log('%c'+err,'color: red');
 
           this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
@@ -317,7 +331,7 @@ export default class MULTI_DATA_MODULE {
         })
         .catch((err)=>{
           // Error.
-          console.log(err);
+          console.log('%c'+err,'color: red');
 
           this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
