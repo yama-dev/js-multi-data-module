@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": 123459,
+      "title": "title text.",
+      "date": "2019.01.01",
+      "article": "Lorem ipsum dolor sit amet,\rconsectetur adipisicing elit,\nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "https://placehold.jp/750x300.png",
+      "link": "/news/test12345/"
+    },
+    {
+      "id": 123458,
+      "title": "title text.",
+      "date": "2019.01.01",
+      "article": "Lorem ipsum dolor sit amet,\rconsectetur adipisicing elit,\nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "https://placehold.jp/750x300.png",
+      "link": "/news/test12345/"
+    },
+    {
+      "id": 123457,
+      "title": "title text.",
+      "date": "2019.01.01",
+      "article": "Lorem ipsum dolor sit amet,\rconsectetur adipisicing elit,\nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "image": "https://placehold.jp/750x300.png",
+      "link": "/news/test12345/"
+    }
+  ]
+}
