@@ -116,7 +116,7 @@
           <div class="form-group">
             <label for="result">Data.</label>
             <p><button type="button" class="btn btn-outline-secondary" v-on:click="actionUpdate">Fetch Data.</button></p>
-            <textarea v-model="result" id="result" class="form-control p-textarea" rows="15" placeholder=""></textarea>
+            <textarea v-model="result" id="result" class="form-control p-textarea" rows="30" placeholder=""></textarea>
           </div>
         </form>
       </div>
@@ -200,9 +200,12 @@
   .nav li {
     cursor: pointer;
   }
+  #app pre {
+    line-height: 1.2em;
+  }
   textarea.p-textarea {
-    line-height: 1.1em;
-    font-size: 12px;
+    line-height: 1.2em;
+    font-size: 14px;
   }
   @-webkit-keyframes motionChange {
     0% {
