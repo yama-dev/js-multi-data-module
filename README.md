@@ -10,6 +10,8 @@ Get multi data library.
 
 ## Demo
 
+- DemoPage -> [https://yama-dev.github.io/js-multi-data-module/examples/](https://yama-dev.github.io/js-multi-data-module/examples/)
+
 ## Installation,Download
 
 - npm -> [https://www.npmjs.com/package/js-multi-data-module](https://www.npmjs.com/package/js-multi-data-module)
@@ -46,7 +48,7 @@ import MULTI_DATA_MODULE from 'js-multi-data-module';
         url:'./sample.json',
         hierarchy: 'items'
       }
-    ]
+    ],
     on: {
       Complete: function(data,list){
         console.log(data,list);
@@ -66,7 +68,7 @@ import MULTI_DATA_MODULE from 'js-multi-data-module';
     orderProperty: 'pubDate',
     filter: true,
     jsonpCallback : 'callback',
-    fetch_timeout : 10000
+    fetch_timeout : 10000,
     data_type: 'jsonp',
     data_list: [
       {
@@ -81,7 +83,7 @@ import MULTI_DATA_MODULE from 'js-multi-data-module';
         url:'./sample.array.json',
         hierarchy: 'items.0', // items[0]
       }
-    ]
+    ],
     on: {
       Update: function(data){
         console.log(data);
