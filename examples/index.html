@@ -60,6 +60,10 @@
         <h3>Demo</h3>
         <p>値を変更して動作が確認出来ます。</p>
         <form>
+          <div class="form-group">
+            <label for="inputFilePath">File Path.</label>
+            <input id="inputFilePath" class="form-control" v-model="inputFilePath" placeholder="ex. ./path/to/data.json">
+          </div>
           <div class="row">
             <div class="col">
               <div class="form-group">
@@ -84,7 +88,11 @@
             <div class="col">
               <div class="form-group">
                 <label for="inputOrder">Order.</label>
-                <input id="inputOrder" class="form-control" v-model="inputOrder" placeholder="">
+                <select class="custom-select mr-sm-2" id="inputOrder" v-model="inputOrder">
+                  <option selected value="down">down</option>
+                  <option value="up">up</option>
+                  <option value=""></option>
+                </select>
               </div>
             </div>
             <div class="col">
@@ -102,10 +110,6 @@
                 </select>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="inputFilePath">File Path.</label>
-            <input id="inputFilePath" class="form-control" v-model="inputFilePath" placeholder="ex. ./path/to/data.json">
           </div>
           <div class="form-group">
             <label>Code</label>
@@ -177,8 +181,8 @@
         }
       ],
       on: {
-        Update: function(data){
-          console.log(data);
+        Update: function(data, count){
+          console.log(data, count);
         },
         Complete: function(data, list){
           console.log(data, list);
@@ -315,11 +319,11 @@ var app = new Vue({
           }
         ],
         on: {
-          Update: function(data){
-            console.log(data);
+          Update: function(data, count){
+            console.log(data, count);
           },
-          Complete: function(data,list){
-            console.log(data,list);
+          Complete: function(data, list){
+            console.log(data, list);
             _that.result = JSON.stringify(data,undefined,1);
             setTimeout(function(){
               _that.flgLoading = false;
@@ -342,7 +346,11 @@ var app = new Vue({
       _str += "  <script>"+"\n";
       _str += "    let MDM =  new MULTI_DATA_MODULE({"+"\n";
       _str += "      data_type: '"+this.inputDataType+"',"+"\n";
-      _str += "      order: '"+this.inputOrder+"',"+"\n";
+      if(this.inputOrder == 'up' || this.inputOrder == 'down'){
+        _str += "      order: '"+this.inputOrder+"',"+"\n";
+      } else {
+        _str += "      order: null,"+"\n";
+      }
       _str += "      orderProperty: '"+this.inputOrderProperty+"',"+"\n";
       _str += "      filter: "+this.inputFilter+","+"\n";
       _str += "      fetch_timeout: "+this.inputFetchTimeout+","+"\n";
@@ -356,11 +364,11 @@ var app = new Vue({
       _str += "        }"+"\n";
       _str += "      ],"+"\n";
       _str += "      on: {"+"\n";
-      _str += "        Update: function(data){"+"\n";
-      _str += "          console.log(data);"+"\n";
+      _str += "        Update: function(data, count){"+"\n";
+      _str += "          console.log(data, count);"+"\n";
       _str += "        },"+"\n";
-      _str += "        Complete: function(data,list){"+"\n";
-      _str += "          console.log(data,list);"+"\n";
+      _str += "        Complete: function(data, list){"+"\n";
+      _str += "          console.log(data, list);"+"\n";
       _str += "        }"+"\n";
       _str += "      }"+"\n";
       _str += "    });"+"\n";
