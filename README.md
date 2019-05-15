@@ -85,8 +85,8 @@ import MULTI_DATA_MODULE from 'js-multi-data-module';
       }
     ],
     on: {
-      Update: function(data){
-        console.log(data);
+      Update: function(data, count){
+        console.log(data, count);
       },
       Complete: function(data, list){
         console.log(data, list);
