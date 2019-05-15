@@ -114,7 +114,7 @@ export default class MULTI_DATA_MODULE {
             this.DataList[count] = [];
           }
 
-          this.OnUpdate(this.DataList[count]);
+          this.OnUpdate(this.DataList[count], count);
 
           count++;
           if(count < countMax){
@@ -131,7 +131,7 @@ export default class MULTI_DATA_MODULE {
           this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
 
-          this.OnUpdate(this.DataList[count]);
+          this.OnUpdate(this.DataList[count], count);
 
           count++;
           if(count < countMax){
@@ -401,10 +401,10 @@ export default class MULTI_DATA_MODULE {
     this.OnComplete();
   }
 
-  OnUpdate(data){
+  OnUpdate(data,count){
     // Callback function.
     if(this.On.Update && typeof(this.On.Update) === 'function'){
-      this.On.Update(data);
+      this.On.Update(data,count);
     }
   }
 
