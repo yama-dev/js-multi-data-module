@@ -16,7 +16,7 @@ Get multi data library.
 
 - npm -> [https://www.npmjs.com/package/js-multi-data-module](https://www.npmjs.com/package/js-multi-data-module)
 
-- Standalone(CDN) -> [https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module/dist/js-multi-data-module.js](https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module/dist/js-multi-data-module.js)
+- Standalone(CDN) -> [https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.4.9/dist/js-multi-data-module.js](https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.4.9/dist/js-multi-data-module.js)
 
 - Zip -> [yama-dev/js-multi-data-module](https://github.com/yama-dev/js-multi-data-module/releases/latest)
 
@@ -85,8 +85,8 @@ import MULTI_DATA_MODULE from 'js-multi-data-module';
       }
     ],
     on: {
-      Update: function(data){
-        console.log(data);
+      Update: function(data, count){
+        console.log(data, count);
       },
       Complete: function(data, list){
         console.log(data, list);
