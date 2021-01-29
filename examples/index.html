@@ -307,7 +307,7 @@ var app = new Vue({
         data_type: this.inputDataType,
         order: this.inputOrder,
         orderProperty: this.inputOrderProperty,
-        filter: this.inputFilter,
+        filter: this.inputFilter == 'true' ? true : false,
         fetch_timeout: this.inputFetchTimeout,
         data_list: [
           {
