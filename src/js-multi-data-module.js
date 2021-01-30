@@ -97,9 +97,11 @@ export default class MULTI_DATA_MODULE {
           let _data = data;
 
           // Select data hierarchy.
-          dataAry[count].hierarchy.split('.').map((item)=>{
-            _data = _data[item];
-          });
+          if(dataAry[count].hierarchy){
+            dataAry[count].hierarchy.split('.').map((item)=>{
+              _data = _data[item];
+            });
+          }
 
           // Set function to format data.
           if(dataAry[count].customFunction){
@@ -192,9 +194,11 @@ export default class MULTI_DATA_MODULE {
           let _data = data;
 
           // Select data hierarchy.
-          dataAry[count].hierarchy.split('.').map((item)=>{
-            _data = _data[item];
-          });
+          if(dataAry[count].hierarchy){
+            dataAry[count].hierarchy.split('.').map((item)=>{
+              _data = _data[item];
+            });
+          }
 
           // Set function to format data.
           if(dataAry[count].customFunction){
