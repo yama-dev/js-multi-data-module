@@ -16,7 +16,7 @@ Get multi data library.
 
 - npm -> [https://www.npmjs.com/package/js-multi-data-module](https://www.npmjs.com/package/js-multi-data-module)
 
-- Standalone(CDN) -> [https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.4.9/dist/js-multi-data-module.js](https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.4.9/dist/js-multi-data-module.js)
+- Standalone(CDN) -> [https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.4.11/dist/js-multi-data-module.js](https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.4.11/dist/js-multi-data-module.js)
 
 - Zip -> [yama-dev/js-multi-data-module](https://github.com/yama-dev/js-multi-data-module/releases/latest)
 
@@ -114,44 +114,6 @@ import MULTI_DATA_MODULE from 'js-multi-data-module';
 none
 
 <br><br><br>
-
-___
-
-**For Developer**
-
-## Contribution
-
-1. Fork it ( https://github.com/yama-dev/js-multi-data-module/fork )
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create new Pull Request
-
-<br>
-
-## Develop
-
-### at Development
-
-Install node modules.
-
-``` bash
-$ npm install
-```
-
-Run npm script 'develop'
-
-``` bash
-$ npm run develop
-```
-
-Run npm script 'production'
-
-``` bash
-$ npm run production
-```
-
-<br>
 
 ## Licence
 
