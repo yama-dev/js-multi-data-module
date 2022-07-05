@@ -16,7 +16,7 @@ Get multi data library.
 
 - npm -> [https://www.npmjs.com/package/js-multi-data-module](https://www.npmjs.com/package/js-multi-data-module)
 
-- Standalone(CDN) -> [https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.4.11/dist/js-multi-data-module.js](https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.4.11/dist/js-multi-data-module.js)
+- Standalone(CDN) -> [https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.5.0/dist/js-multi-data-module.js](https://cdn.jsdelivr.net/gh/yama-dev/js-multi-data-module@v0.5.0/dist/js-multi-data-module.js)
 
 - Zip -> [yama-dev/js-multi-data-module](https://github.com/yama-dev/js-multi-data-module/releases/latest)
 
