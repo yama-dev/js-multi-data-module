@@ -1,7 +1,5 @@
 /*eslint no-console: "off"*/
 
-import Promise from 'es6-promise';
-
 export default class MULTI_DATA_MODULE {
 
   constructor(options={}){
@@ -34,7 +32,7 @@ export default class MULTI_DATA_MODULE {
 
     // Data obj.
     this.DataFix = [];
-    this.DataList = {};
+    this.DataList = [];
 
     // Set callback functions.
     if(!options.on){
@@ -84,7 +82,7 @@ export default class MULTI_DATA_MODULE {
           window.callback = (response)=>{
             resolve(response);
           };
-          setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
+          setTimeout(()=>{ reject('error: timeout'); }, this.Config.fetch_timeout);
 
         } else {
           reject('error:not found data.');
@@ -181,7 +179,7 @@ export default class MULTI_DATA_MODULE {
           xhr.open('GET', _url, true);
           xhr.send(null);
 
-          setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
+          setTimeout(()=>{ reject('error: timeout'); }, this.Config.fetch_timeout);
 
         } else {
           reject('error:not found data.');
@@ -301,7 +299,7 @@ export default class MULTI_DATA_MODULE {
         xhr.responseType = 'document';
         xhr.send(null);
 
-        setTimeout(()=>{ reject('error'); }, this.Config.fetch_timeout);
+        setTimeout(()=>{ reject('error: timeout'); }, this.Config.fetch_timeout);
       });
 
       promise
