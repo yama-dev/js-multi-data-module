@@ -40,7 +40,8 @@ export default class MULTI_DATA_MODULE {
     }
     this.On = {
       Update   : options.on.Update||'',
-      Complete : options.on.Complete||''
+      Complete : options.on.Complete||'',
+      Fail     : options.on.Fail||''
     };
 
     // For Jsonp data.
@@ -126,7 +127,7 @@ export default class MULTI_DATA_MODULE {
         })
         .catch((err)=>{
           // Error.
-          console.log('%c'+err,'color: red');
+          this.OnFail({message: err, data: this.DataList[count]});
 
           this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
@@ -223,7 +224,7 @@ export default class MULTI_DATA_MODULE {
         })
         .catch((err)=>{
           // Error.
-          console.log('%c'+err,'color: red');
+          this.OnFail({message: err, data: this.DataList[count]});
 
           this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
@@ -333,7 +334,7 @@ export default class MULTI_DATA_MODULE {
         })
         .catch((err)=>{
           // Error.
-          console.log('%c'+err,'color: red');
+          this.OnFail({message: err, data: this.DataList[count]});
 
           this.DataFix = this.DataFix.concat(['']);
           this.DataList[count] = [];
@@ -414,6 +415,13 @@ export default class MULTI_DATA_MODULE {
     // Callback function.
     if(this.On.Complete && typeof(this.On.Complete) === 'function'){
       this.On.Complete(this.DataFix, this.DataList);
+    }
+  }
+
+  OnFail(e={}){
+    // Callback function.
+    if(this.On.Fail && typeof(this.On.Fail) === 'function'){
+      this.On.Fail(e);
     }
   }
 
