@@ -90,6 +90,9 @@ import MULTI_DATA_MODULE from 'js-multi-data-module';
       },
       Complete: function(data, list){
         console.log(data, list);
+      },
+      Fail: function(err){
+        console.log(err);
       }
     }
   });
